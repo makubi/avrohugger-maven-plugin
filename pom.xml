@@ -16,8 +16,12 @@
 
         <java.version>1.8</java.version>
 
+        <!-- Temporary for avrohugger-filesorter -->
+        <spray.json.version>1.3.2</spray.json.version>
+
         <maven.plugin.api.version>3.3.9</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.5</maven.plugin.annotations.version>
+        <avrohugger.version>0.12.1</avrohugger.version>
         <junit.version>4.12</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.5</commons.io.version>
@@ -44,6 +48,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Temporary for avrohugger-filesorter -->
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-json_${scala.binary.version}</artifactId>
+            <version>${spray.json.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
@@ -52,7 +63,7 @@
         <dependency>
             <groupId>com.julianpeeters</groupId>
             <artifactId>avrohugger-core_${scala.binary.version}</artifactId>
-            <version>0.12.1</version>
+            <version>${avrohugger.version}</version>
         </dependency>
 
         <dependency>

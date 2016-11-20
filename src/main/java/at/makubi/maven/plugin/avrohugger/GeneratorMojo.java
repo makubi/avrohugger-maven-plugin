@@ -27,10 +27,10 @@ import java.io.File;
 @Mojo(name = "generate-scala-sources")
 public class GeneratorMojo extends AbstractMojo {
 
-    @Parameter(property = "sourceDirectory", defaultValue = "src/main/resources/avro", required = true)
+    @Parameter(property = "sourceDirectory", defaultValue = "${basedir}/src/main/avro", required = true)
     private File sourceDirectory;
 
-    @Parameter(property = "outputDirectory", defaultValue = "target/generated-sources", required = true)
+    @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}/generated-sources/avro", required = true)
     private File outputDirectory;
 
     @Override

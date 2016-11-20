@@ -18,8 +18,10 @@ package at.makubi.maven.plugin.avrohugger
 
 import java.io.File
 
+import at.makubi.maven.plugin.avrohugger.Implicits._
 import avrohugger.Generator
 import avrohugger.format.SpecificRecord
+import com.julianpeeters.avrohugger.filesorter.AVSCFileSorter
 import org.apache.maven.plugin.logging.Log
 
 class AvrohuggerGenerator {
@@ -27,7 +29,14 @@ class AvrohuggerGenerator {
   def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log): Unit = {
     val generator = new Generator(SpecificRecord)
 
-    inputDirectory.listFiles().foreach { schemaFile =>
+    val allFiles = inputDirectory.listFiles()
+
+    val avdlFiles = allFiles.withSuffix(".avdl")
+    val avscFiles = AVSCFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
+    val avprFiles = allFiles.withSuffix(".avpr")
+    val avroFiles = allFiles.withSuffix(".avro")
+
+    (avdlFiles ++ avscFiles ++ avprFiles ++ avroFiles).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)

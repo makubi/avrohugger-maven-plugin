@@ -64,7 +64,7 @@ add the generated Scala sources to your Scala build.
                     <goal>add-source</goal>
                 </goals>
                 <configuration>
-                    <sourceDir>target/generated-sources</sourceDir>
+                    <sourceDir>${project.build.directory}/generated-sources/avro</sourceDir>
                 </configuration>
             </execution>
             <execution>
@@ -85,11 +85,11 @@ You can override the following variables in the plugin configuration:
 
 #### sourceDirectory
 * Path to the directory containing the Avro schema files
-* Defaults to **src/main/resources/avro**
+* Defaults to **${basedir}/src/main/avro**
 
 #### outputDirectory
 * Path to the output directory for the generated Scala sources
-* Defaults to **target/generated-sources**
+* Defaults to **${project.build.directory}/generated-sources/avro**
 
 #### Example
 
@@ -109,8 +109,8 @@ To override the **sourceDirectory** and **outputDirectory**, use
             </execution>
         </executions>
         <configuration>
-            <sourceDirectory>src/main/avro</sourceDirectory>
-            <outputDirectory>target/classes</outputDirectory>
+            <sourceDirectory>src/main/resources/avro</sourceDirectory>
+            <outputDirectory>target/generated-sources</outputDirectory>
         </configuration>
     </plugin>
 </plugins>
