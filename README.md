@@ -116,5 +116,11 @@ To override the **sourceDirectory** and **outputDirectory**, use
 </plugins>
 ```
 
+## Dependencies
+
+This plugin heavily relies on
+[Avrohugger](https://github.com/julianpeeters/avrohugger) to generate
+Scala code.
+
 ## License
 The Avrohugger Maven Plugin is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

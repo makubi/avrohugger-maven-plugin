@@ -203,8 +203,8 @@
         <profile>
             <id>scala-2.12</id>
             <properties>
-                <scala.compat.version>2.12</scala.compat.version>
-                <scala.version>${scala.compat.version}.0</scala.version>
+                <scala.binary.version>2.12</scala.binary.version>
+                <scala.version>${scala.binary.version}.0</scala.version>
             </properties>
         </profile>
     </profiles>
