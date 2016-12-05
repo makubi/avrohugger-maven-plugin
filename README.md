@@ -4,7 +4,7 @@ Maven plugin for generating Scala case classes and ADTs from Apache Avro
 schemas, datafiles, and protocols.
 
 [![Build Status](https://travis-ci.org/makubi/avrohugger-maven-plugin.svg?branch=master)](https://travis-ci.org/makubi/avrohugger-maven-plugin)
-[![Maven Central](https://img.shields.io/maven-central/v/at.makubi.maven.plugin/avrohugger-maven-plugin.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%at.makubi.maven.plugin%22%20AND%20a%3A%22avrohugger-maven-plugin%22)
+[![Maven Central](https://img.shields.io/maven-central/v/at.makubi.maven.plugin/avrohugger-maven-plugin_2.11.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22at.makubi.maven.plugin%22%20a%3A%22avrohugger-maven-plugin_2.11%22)
 
 ## Usage
 
