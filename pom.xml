@@ -23,7 +23,7 @@
 
         <maven.plugin.api.version>3.3.9</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.5</maven.plugin.annotations.version>
-        <avrohugger.version>0.12.1</avrohugger.version>
+        <avrohugger.version>0.13.0</avrohugger.version>
         <junit.version>4.12</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.5</commons.io.version>
