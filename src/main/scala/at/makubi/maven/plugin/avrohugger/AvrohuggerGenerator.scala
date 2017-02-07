@@ -24,6 +24,8 @@ import avrohugger.format.SpecificRecord
 import com.julianpeeters.avrohugger.filesorter.AVSCFileSorter
 import org.apache.maven.plugin.logging.Log
 
+import scala.collection.mutable.ListBuffer
+
 class AvrohuggerGenerator {
 
   def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log): Unit =
@@ -32,18 +34,27 @@ class AvrohuggerGenerator {
   def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean): Unit = {
     val generator = new Generator(SpecificRecord)
 
-    val allFiles = inputDirectory.listFiles()
-
-    val avdlFiles = allFiles.withSuffix(".avdl")
-    val avscFiles = AVSCFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
-    val avprFiles = allFiles.withSuffix(".avpr")
-    val avroFiles = allFiles.withSuffix(".avro")
-
-    (avdlFiles ++ avscFiles ++ avprFiles ++ avroFiles).foreach { schemaFile =>
+    listFiles(inputDirectory, recursive).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)
     }
+  }
+
+  protected def listFiles(inputDirectory: File, recursive: Boolean): Seq[File] = {
+    val allFiles = inputDirectory.listFiles()
+    val schemaFiles = new ListBuffer[File]()
+
+    schemaFiles ++= allFiles.withSuffix(".avdl")
+    schemaFiles ++= AVSCFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
+    schemaFiles ++= allFiles.withSuffix(".avpr")
+    schemaFiles ++= allFiles.withSuffix(".avro")
+
+    if (recursive) {
+      schemaFiles ++= allFiles.filter { _.isDirectory }.flatMap { listFiles(_, true) }
+    }
+
+    schemaFiles
   }
 
 }

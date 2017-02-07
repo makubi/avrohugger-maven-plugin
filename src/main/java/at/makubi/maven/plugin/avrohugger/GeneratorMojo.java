@@ -33,6 +33,9 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}/generated-sources/avro", required = true)
     private File outputDirectory;
 
+    @Parameter(property = "recursive", defaultValue = "false", required = true)
+    private Boolean recursive;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();
@@ -44,6 +47,6 @@ public class GeneratorMojo extends AbstractMojo {
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
-        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog());
+        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive);
     }
 }
