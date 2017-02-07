@@ -51,6 +51,22 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         assertTrue("Generated Scala file does not match expected one", FileUtils.contentEquals(expectedRecord, actualRecords));
     }
 
+    public void testAvrohuggerGeneratorRecursive() throws IOException {
+        Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
+        Path schemaDirectory = inputDirectory.resolve("schema");
+
+        File expectedRecord = inputDirectory.resolve("expected/Record.scala").toFile();
+        File actualRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala").toFile();
+        
+        File expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala").toFile();
+        File actualSubRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala").toFile();
+
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true);
+
+        assertTrue("Generated Scala Record file does not match expected one", FileUtils.contentEquals(expectedRecord, actualRecords));
+        assertTrue("Generated Scala SubRecord file does not match expected one", FileUtils.contentEquals(expectedSubRecord, actualSubRecords));
+    }
+
     @After
     public void tearDown() throws IOException {
         FileUtils.deleteDirectory(outputDirectory.toFile());

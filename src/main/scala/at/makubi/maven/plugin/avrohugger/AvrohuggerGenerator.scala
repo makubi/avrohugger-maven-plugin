@@ -26,7 +26,10 @@ import org.apache.maven.plugin.logging.Log
 
 class AvrohuggerGenerator {
 
-  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log): Unit = {
+  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log): Unit =
+    generateScalaFiles(inputDirectory, outputDirectory, log, false)
+
+  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean): Unit = {
     val generator = new Generator(SpecificRecord)
 
     val allFiles = inputDirectory.listFiles()
