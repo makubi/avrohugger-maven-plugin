@@ -46,7 +46,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         File expectedRecord = inputDirectory.resolve("expected/Record.scala").toFile();
         File actualRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala").toFile();
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog());
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false);
 
         assertTrue("Generated Scala file does not match expected one", FileUtils.contentEquals(expectedRecord, actualRecords));
     }
