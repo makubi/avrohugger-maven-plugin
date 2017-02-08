@@ -92,9 +92,9 @@ You can override the following variables in the plugin configuration:
 * Path to the output directory for the generated Scala sources
 * Defaults to **${project.build.directory}/generated-sources/avro**
 
-### recursive
+#### recursive
 * Boolean to allow recursion over the specified **sourceDirectory**
-* Defaults to **false***
+* Defaults to **false**
 
 #### Example
 
