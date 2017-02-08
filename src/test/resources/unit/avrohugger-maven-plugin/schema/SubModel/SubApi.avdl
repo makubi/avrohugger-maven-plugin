@@ -1,0 +1,8 @@
+@namespace("at.makubi.maven.plugin.model.submodel")
+
+protocol SubModel {
+
+  record SubRecord {
+    string text;
+  }
+}

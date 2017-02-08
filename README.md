@@ -92,6 +92,10 @@ You can override the following variables in the plugin configuration:
 * Path to the output directory for the generated Scala sources
 * Defaults to **${project.build.directory}/generated-sources/avro**
 
+### recursive
+* Boolean to allow recursion over the specified **sourceDirectory**
+* Defaults to **false***
+
 #### Example
 
 To override the **sourceDirectory** and **outputDirectory**, use
@@ -112,6 +116,30 @@ To override the **sourceDirectory** and **outputDirectory**, use
         <configuration>
             <sourceDirectory>src/main/resources/avro</sourceDirectory>
             <outputDirectory>target/generated-sources</outputDirectory>
+        </configuration>
+    </plugin>
+</plugins>
+```
+
+To override the **sourceDirectory**, **outputDirectory** and recurse over **sourceDirectory**, use
+
+```xml
+<plugins>
+    <plugin>
+        <groupId>at.makubi.maven.plugin</groupId>
+        <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
+        <executions>
+            <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>generate-scala-sources</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <sourceDirectory>src/main/resources/avro</sourceDirectory>
+            <outputDirectory>target/generated-sources</outputDirectory>
+            <recursive>true</recursive>
         </configuration>
     </plugin>
 </plugins>
