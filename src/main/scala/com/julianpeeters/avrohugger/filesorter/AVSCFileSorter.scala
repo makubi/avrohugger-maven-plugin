@@ -15,7 +15,9 @@ import scala.io.Source
   * correct order. Code adapted from https://github.com/ch4mpy/sbt-avro/blob/master/src/main/scala/com/c4soft/sbtavro/SbtAvro.scala
   * by Jerome Wascongne
   *
-  * Copied from https://github.com/julianpeeters/sbt-avro/tree/ebf8309223eedf716d36f2dc3c973d37fca58b81/src/main/scala/sbtavro/filesorter
+  * Copied from
+  * https://github.com/julianpeeters/sbt-avrohugger/tree/3006c9f56819657d2eb04f9f5280b98648990d8b/src/main/scala/sbtavrohugger/filesorter,
+  * see https://github.com/julianpeeters/avrohugger/pull/54
   */
 object AVSCFileSorter {
 
