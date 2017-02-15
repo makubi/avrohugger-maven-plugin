@@ -21,7 +21,7 @@ import java.io.File
 import at.makubi.maven.plugin.avrohugger.Implicits._
 import avrohugger.Generator
 import avrohugger.format.SpecificRecord
-import com.julianpeeters.avrohugger.filesorter.AVSCFileSorter
+import com.julianpeeters.avrohugger.filesorter.{AVDLFileSorter, AVSCFileSorter}
 import org.apache.maven.plugin.logging.Log
 
 import scala.collection.mutable.ListBuffer
@@ -41,7 +41,7 @@ class AvrohuggerGenerator {
     val allFiles = inputDirectory.listFiles()
     val schemaFiles = new ListBuffer[File]()
 
-    schemaFiles ++= allFiles.withSuffix(".avdl")
+    schemaFiles ++= AVDLFileSorter.sortSchemaFiles(allFiles.withSuffix(".avdl"))
     schemaFiles ++= AVSCFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
     schemaFiles ++= allFiles.withSuffix(".avpr")
     schemaFiles ++= allFiles.withSuffix(".avro")
