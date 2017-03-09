@@ -18,7 +18,7 @@ The plugin currently supports one goal:
 <plugin>
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <executions>
         <execution>
             <phase>generate-sources</phase>
@@ -153,6 +153,7 @@ Scala code.
 
 ## Contributors
 * [robbruce](https://github.com/robbruce)
+* [Eugene Platonov](https://github.com/jozic)
 
 ## License
 The Avrohugger Maven Plugin is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
