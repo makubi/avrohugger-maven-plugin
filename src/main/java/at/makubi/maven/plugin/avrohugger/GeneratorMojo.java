@@ -36,6 +36,9 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "recursive", defaultValue = "false", required = true)
     private Boolean recursive;
 
+    @Parameter(property = "limitedNumberOfFieldsInCaseClasses", defaultValue = "false", required = true)
+    private Boolean limitedNumberOfFieldsInCaseClasses;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();
@@ -47,6 +50,6 @@ public class GeneratorMojo extends AbstractMojo {
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
-        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive);
+        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive, limitedNumberOfFieldsInCaseClasses);
     }
 }
