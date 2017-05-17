@@ -96,6 +96,10 @@ You can override the following variables in the plugin configuration:
 * Boolean to allow recursion over the specified **sourceDirectory**
 * Defaults to **false**
 
+#### limitedNumberOfFieldsInCaseClasses
+* Boolean to restrict case class generation for compatibility with scala 2.10
+* Defaults to **false**
+
 #### Example
 
 To override the **sourceDirectory** and **outputDirectory**, use
@@ -121,7 +125,7 @@ To override the **sourceDirectory** and **outputDirectory**, use
 </plugins>
 ```
 
-To override the **sourceDirectory**, **outputDirectory** and recurse over **sourceDirectory**, use
+To override the **sourceDirectory**, **outputDirectory**, recurse over **sourceDirectory**, and restrict generated class fields to be compatible with Scala 2.10 use
 
 ```xml
 <plugins>
@@ -140,6 +144,7 @@ To override the **sourceDirectory**, **outputDirectory** and recurse over **sour
             <sourceDirectory>src/main/resources/avro</sourceDirectory>
             <outputDirectory>target/generated-sources</outputDirectory>
             <recursive>true</recursive>
+            <limitedNumberOfFieldsInCaseClasses>true</limitedNumberOfFieldsInCaseClasses>>
         </configuration>
     </plugin>
 </plugins>
@@ -154,6 +159,7 @@ Scala code.
 ## Contributors
 * [robbruce](https://github.com/robbruce)
 * [Eugene Platonov](https://github.com/jozic)
+* [Jason Bowman](https://github.com/sini)
 
 ## License
 The Avrohugger Maven Plugin is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

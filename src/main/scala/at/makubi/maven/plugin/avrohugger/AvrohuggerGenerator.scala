@@ -27,8 +27,8 @@ import org.apache.maven.plugin.logging.Log
 import scala.collection.mutable.ListBuffer
 
 class AvrohuggerGenerator {
-  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean): Unit = {
-    val generator = new Generator(SpecificRecord)
+  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean, limitedNumberOfFieldsInCaseClasses: Boolean): Unit = {
+    val generator = new Generator(SpecificRecord, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses)
 
     listFiles(inputDirectory, recursive).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
