@@ -18,7 +18,7 @@ The plugin currently supports one goal:
 <plugin>
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <executions>
         <execution>
             <phase>generate-sources</phase>
