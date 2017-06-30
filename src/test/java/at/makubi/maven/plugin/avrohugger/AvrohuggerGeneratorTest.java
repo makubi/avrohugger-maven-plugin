@@ -22,7 +22,6 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.junit.After;
 import org.junit.Before;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,41 +34,51 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
+
         avrohuggerGenerator = new AvrohuggerGenerator();
         outputDirectory = Files.createTempDirectory(Paths.get(getBasedir()).resolve("target"), AvrohuggerGeneratorTest.class.getCanonicalName());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        FileUtils.deleteDirectory(outputDirectory.toFile());
+
+        super.tearDown();
     }
 
     public void testAvrohuggerGenerator() throws IOException {
         Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
         Path schemaDirectory = inputDirectory.resolve("schema");
 
-        File expectedRecord = inputDirectory.resolve("expected/Record.scala").toFile();
-        File actualRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala").toFile();
+        Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
+        Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
 
         avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false);
 
-        assertTrue("Generated Scala file does not match expected one", FileUtils.contentEquals(expectedRecord, actualRecords));
+        failTestIfFilesDiffer(expectedRecord, actualRecord);
     }
 
     public void testAvrohuggerGeneratorRecursive() throws IOException {
         Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
         Path schemaDirectory = inputDirectory.resolve("schema");
 
-        File expectedRecord = inputDirectory.resolve("expected/Record.scala").toFile();
-        File actualRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala").toFile();
+        Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
+        Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
         
-        File expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala").toFile();
-        File actualSubRecords = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala").toFile();
+        Path expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala");
+        Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
 
         avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false);
 
-        assertTrue("Generated Scala Record file does not match expected one", FileUtils.contentEquals(expectedRecord, actualRecords));
-        assertTrue("Generated Scala SubRecord file does not match expected one", FileUtils.contentEquals(expectedSubRecord, actualSubRecords));
+        failTestIfFilesDiffer(expectedRecord, actualRecord);
+        failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);
     }
 
-    @After
-    public void tearDown() throws IOException {
-        FileUtils.deleteDirectory(outputDirectory.toFile());
+    private void failTestIfFilesDiffer(Path expectedFile, Path actualFile) throws IOException {
+        String fileDiff = Diff.fileDiff(expectedFile.toFile(), actualFile.toFile());
+        if (!fileDiff.isEmpty()) {
+            fail("Expected file " + expectedFile + " and actual file " + actualFile + " differ. See output below." + System.lineSeparator() + fileDiff);
+        }
     }
-
 }
