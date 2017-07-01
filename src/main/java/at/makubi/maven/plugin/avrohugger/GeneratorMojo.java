@@ -27,17 +27,20 @@ import java.io.File;
 @Mojo(name = "generate-scala-sources")
 public class GeneratorMojo extends AbstractMojo {
 
-    @Parameter(property = "sourceDirectory", defaultValue = "${basedir}/src/main/avro", required = true)
+    @Parameter(property = "sourceDirectory", defaultValue = "${basedir}/" + Defaults.relativeSourceDirectory, required = true)
     private File sourceDirectory;
 
-    @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}/generated-sources/avro", required = true)
+    @Parameter(property = "outputDirectory", defaultValue = "${project.build.directory}/" + Defaults.relativeOutputDirectory, required = true)
     private File outputDirectory;
 
-    @Parameter(property = "recursive", defaultValue = "false", required = true)
+    @Parameter(property = "recursive", defaultValue = Defaults.recursive, required = true)
     private Boolean recursive;
 
-    @Parameter(property = "limitedNumberOfFieldsInCaseClasses", defaultValue = "false", required = true)
+    @Parameter(property = "limitedNumberOfFieldsInCaseClasses", defaultValue = Defaults.limitedNumberOfFieldsInCaseClasses, required = true)
     private Boolean limitedNumberOfFieldsInCaseClasses;
+
+    @Parameter(property = "sourceGenerationFormat", defaultValue = Defaults.sourceGenerationFormat, required = true)
+    private SourceGenerationFormat sourceGenerationFormat;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -50,6 +53,6 @@ public class GeneratorMojo extends AbstractMojo {
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
-        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive, limitedNumberOfFieldsInCaseClasses);
+        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive, limitedNumberOfFieldsInCaseClasses, sourceGenerationFormat);
     }
 }

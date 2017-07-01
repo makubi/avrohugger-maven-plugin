@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>at.makubi.maven.plugin</groupId>
+    <artifactId>test-module</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Test module</name>
+    <description>Test description</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>avrohugger-maven-plugin_2.11</artifactId>
+                <configuration>
+                    <!-- Broken without ${basedir} -->
+                    <sourceDirectory>${basedir}/target/test-harness/avrohugger-maven-plugin/src/main/resources/avro</sourceDirectory>
+                    <outputDirectory>${basedir}/target/test-harness/avrohugger-maven-plugin/target/avro</outputDirectory>
+                    <recursive>true</recursive>
+                    <limitedNumberOfFieldsInCaseClasses>true</limitedNumberOfFieldsInCaseClasses>
+                    <sourceGenerationFormat>STANDARD</sourceGenerationFormat>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

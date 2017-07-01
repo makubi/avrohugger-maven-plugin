@@ -100,6 +100,10 @@ You can override the following variables in the plugin configuration:
 * Boolean to restrict case class generation for compatibility with scala 2.10
 * Defaults to **false**
 
+#### sourceGenerationFormat
+* Format for source code generation
+* Defaults to **SPECIFIC_RECORD**
+
 #### Example
 
 To override the **sourceDirectory** and **outputDirectory**, use

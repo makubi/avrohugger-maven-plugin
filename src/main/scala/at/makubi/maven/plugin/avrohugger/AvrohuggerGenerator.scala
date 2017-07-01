@@ -21,14 +21,20 @@ import java.io.File
 import at.makubi.maven.plugin.avrohugger.Implicits._
 import avrohugger.Generator
 import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
-import avrohugger.format.SpecificRecord
+import avrohugger.format.{Scavro, SpecificRecord, Standard}
 import org.apache.maven.plugin.logging.Log
 
 import scala.collection.mutable.ListBuffer
 
 class AvrohuggerGenerator {
-  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean, limitedNumberOfFieldsInCaseClasses: Boolean): Unit = {
-    val generator = new Generator(SpecificRecord, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses)
+  def generateScalaFiles(inputDirectory: File, outputDirectory: String, log: Log, recursive: Boolean, limitedNumberOfFieldsInCaseClasses: Boolean, sourceGenerationFormat: SourceGenerationFormat): Unit = {
+    val sourceFormat = sourceGenerationFormat match {
+      case SourceGenerationFormat.SCAVRO => Scavro
+      case SourceGenerationFormat.SPECIFIC_RECORD => SpecificRecord
+      case SourceGenerationFormat.STANDARD => Standard
+    }
+
+    val generator = new Generator(sourceFormat, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses)
 
     listFiles(inputDirectory, recursive).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
