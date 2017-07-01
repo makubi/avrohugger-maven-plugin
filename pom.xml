@@ -25,6 +25,7 @@
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.5</commons.io.version>
         <jgit.version>4.8.0.201706111038-r</jgit.version>
+        <logback.version>1.2.3</logback.version>
 
         <scala.maven.plugin.version>3.2.2</scala.maven.plugin.version>
         <maven.compiler.plugin.version>3.6.0</maven.compiler.plugin.version>
@@ -99,6 +100,12 @@
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
             <version>${jgit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
