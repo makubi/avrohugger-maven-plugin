@@ -1,0 +1,8 @@
+@namespace("at.makubi.maven.plugin.model")
+
+protocol Model {
+
+  record Record {
+    string text;
+  }
+}

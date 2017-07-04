@@ -27,6 +27,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static at.makubi.maven.plugin.avrohugger.TestHelper.failTestIfFilesDiffer;
+
 public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
 
     AvrohuggerGenerator avrohuggerGenerator;
@@ -54,7 +56,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
         Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false);
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD);
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
     }
@@ -69,16 +71,10 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala");
         Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false);
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false, SourceGenerationFormat.SPECIFIC_RECORD);
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
         failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);
     }
 
-    private void failTestIfFilesDiffer(Path expectedFile, Path actualFile) throws IOException {
-        String fileDiff = Diff.fileDiff(expectedFile.toFile(), actualFile.toFile());
-        if (!fileDiff.isEmpty()) {
-            fail("Expected file " + expectedFile + " and actual file " + actualFile + " differ. See output below." + System.lineSeparator() + fileDiff);
-        }
-    }
 }
