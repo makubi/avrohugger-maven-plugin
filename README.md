@@ -4,8 +4,14 @@ Maven plugin for generating Scala case classes and ADTs from Apache Avro
 schemas, datafiles, and protocols.
 
 [![Build Status](https://travis-ci.org/makubi/avrohugger-maven-plugin.svg?branch=master)](https://travis-ci.org/makubi/avrohugger-maven-plugin)
-[![Maven Central](https://img.shields.io/maven-central/v/at.makubi.maven.plugin/avrohugger-maven-plugin_2.11.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22at.makubi.maven.plugin%22%20a%3A%22avrohugger-maven-plugin_2.11%22)
+[![Maven Central](https://img.shields.io/maven-central/v/at.makubi.maven.plugin/avrohugger-maven-plugin.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22at.makubi.maven.plugin%22%20a%3A%22avrohugger-maven-plugin%22)
 [![Join the chat at https://gitter.im/julianpeeters/avrohugger](https://badges.gitter.im/julianpeeters/avrohugger.svg)](https://gitter.im/julianpeeters/avrohugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## ![Attention](http://makubi.at/attention_icon.png) Attention: artifactId changed
+
+Please be aware that the **artifactId** changed from **avrohugger-maven-plugin_2.11** to **avrohugger-maven-plugin**.
+
+There is no reason to cross-compile Maven plugins, see http://maven.apache.org/guides/mini/guide-maven-classloading.html#Plugin_Classloaders.
 
 ## Usage
 
@@ -17,7 +23,7 @@ The plugin currently supports one goal:
 ```xml
 <plugin>
     <groupId>at.makubi.maven.plugin</groupId>
-    <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
+    <artifactId>avrohugger-maven-plugin</artifactId>
     <version>1.3</version>
     <executions>
         <execution>
@@ -30,9 +36,6 @@ The plugin currently supports one goal:
 </plugin>
 ```
 
-Replace `${scala.binary.version}` with the used Scala binary version,
-e.g. `2.11`.
-
 ### Usage in conjunction with the scala-maven-plugin
 
 This plugin can be used in conjunction with the
@@ -43,7 +46,7 @@ add the generated Scala sources to your Scala build.
 <plugins>
     <plugin>
         <groupId>at.makubi.maven.plugin</groupId>
-        <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
+        <artifactId>avrohugger-maven-plugin</artifactId>
         <executions>
             <execution>
                 <phase>generate-sources</phase>
@@ -112,7 +115,7 @@ To override the **sourceDirectory** and **outputDirectory**, use
 <plugins>
     <plugin>
         <groupId>at.makubi.maven.plugin</groupId>
-        <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
+        <artifactId>avrohugger-maven-plugin</artifactId>
         <executions>
             <execution>
                 <phase>generate-sources</phase>
@@ -135,7 +138,7 @@ To override the **sourceDirectory**, **outputDirectory**, recurse over **sourceD
 <plugins>
     <plugin>
         <groupId>at.makubi.maven.plugin</groupId>
-        <artifactId>avrohugger-maven-plugin_${scala.binary.version}</artifactId>
+        <artifactId>avrohugger-maven-plugin</artifactId>
         <executions>
             <execution>
                 <phase>generate-sources</phase>
