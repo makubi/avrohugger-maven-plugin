@@ -11,7 +11,7 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>avrohugger-maven-plugin_2.11</artifactId>
+                <artifactId>avrohugger-maven-plugin</artifactId>
                 <configuration>
                     <!-- Broken without ${basedir} -->
                     <sourceDirectory>${basedir}/target/test-harness/avrohugger-maven-plugin/src/main/resources/avro</sourceDirectory>
