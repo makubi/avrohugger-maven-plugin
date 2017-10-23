@@ -107,6 +107,10 @@ You can override the following variables in the plugin configuration:
 * Format for source code generation
 * Defaults to **SPECIFIC_RECORD**
 
+#### namespaceMapping
+* Map namespace in Avro files to custom package name in generated scala files
+* Defaults to **null** (Namespace is not modified)
+
 #### Example
 
 To override the **sourceDirectory** and **outputDirectory**, use
@@ -152,6 +156,33 @@ To override the **sourceDirectory**, **outputDirectory**, recurse over **sourceD
             <outputDirectory>target/generated-sources</outputDirectory>
             <recursive>true</recursive>
             <limitedNumberOfFieldsInCaseClasses>true</limitedNumberOfFieldsInCaseClasses>>
+        </configuration>
+    </plugin>
+</plugins>
+```
+
+To override the **namespaceMapping** of Avro protocols under the `com.example.packagename` namespace to `com.example.packagenamechanged`
+
+```xml
+<plugins>
+    <plugin>
+        <groupId>at.makubi.maven.plugin</groupId>
+        <artifactId>avrohugger-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>generate-scala-sources</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <namespaceMapping>
+                <mapping>
+                    <from>com.example.packagename</from>
+                    <to>com.example.packagenamechanged</to>
+                </mapping>
+            </namespaceMapping>
         </configuration>
     </plugin>
 </plugins>
