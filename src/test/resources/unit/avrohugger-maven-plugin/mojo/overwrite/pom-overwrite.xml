@@ -19,6 +19,12 @@
                     <recursive>true</recursive>
                     <limitedNumberOfFieldsInCaseClasses>true</limitedNumberOfFieldsInCaseClasses>
                     <sourceGenerationFormat>STANDARD</sourceGenerationFormat>
+                    <namespaceMapping>
+                        <mapping>
+                            <from>at.makubi.maven.plugin.model.namespacetest</from>
+                            <to>at.makubi.maven.plugin.model.namespacechanged.subchange</to>
+                        </mapping>
+                    </namespaceMapping>
                 </configuration>
             </plugin>
         </plugins>
