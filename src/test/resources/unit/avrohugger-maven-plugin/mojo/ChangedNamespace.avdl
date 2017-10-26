@@ -1,0 +1,6 @@
+@namespace("at.makubi.maven.plugin.model.namespacetest")
+protocol NamespaceTest {
+  record NamespaceRecord {
+    string text;
+  }
+}
