@@ -24,7 +24,7 @@ import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
 import org.apache.maven.plugin.logging.Log
 import java.util
-import collection.JavaConversions._
+import collection.JavaConverters._
 
 import scala.collection.mutable.ListBuffer
 
@@ -35,7 +35,7 @@ class AvrohuggerGenerator {
     recursive: Boolean,
     limitedNumberOfFieldsInCaseClasses: Boolean,
     sourceGenerationFormat: SourceGenerationFormat,
-    namespaceMappings: util.Map[String, String]
+    namespaceMappings: util.List[Mapping]
   ): Unit = {
     val sourceFormat = sourceGenerationFormat match {
       case SourceGenerationFormat.SCAVRO => Scavro
@@ -43,7 +43,9 @@ class AvrohuggerGenerator {
       case SourceGenerationFormat.STANDARD => Standard
     }
 
-    val generator = new Generator(sourceFormat, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses, avroScalaCustomNamespace = namespaceMappings.toMap)
+    val mappings = namespaceMappings.asScala.map { m => m.from -> m.to }.toMap
+
+    val generator = new Generator(sourceFormat, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses, avroScalaCustomNamespace = mappings)
 
     listFiles(inputDirectory, recursive).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")

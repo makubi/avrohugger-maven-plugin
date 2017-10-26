@@ -1,6 +1,6 @@
 package at.makubi.maven.plugin.avrohugger;
 
-public class mapping {
+public class Mapping {
     String from;
     String to;
 }

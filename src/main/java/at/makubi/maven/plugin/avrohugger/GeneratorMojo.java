@@ -23,6 +23,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class GeneratorMojo extends AbstractMojo {
     private SourceGenerationFormat sourceGenerationFormat;
 
     @Parameter(property = "namespaceMapping")
-    private List<mapping> namespaceMapping;
+    private List<Mapping> namespaceMapping = new ArrayList<>();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -58,13 +59,6 @@ public class GeneratorMojo extends AbstractMojo {
         String outputDirectoryPath = outputDirectory.getAbsolutePath();
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
-        Map<String, String> nonNullNamespaceMapping = new HashMap<>();
-        if (namespaceMapping != null && !namespaceMapping.isEmpty()) {
-            for (int i = 0; i < namespaceMapping.size(); ++i) {
-                nonNullNamespaceMapping.put(namespaceMapping.get(i).from, namespaceMapping.get(i).to);
-            }
-        }
-
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
         generator.generateScalaFiles(sourceDirectory,
                 outputDirectoryPath,
@@ -72,6 +66,6 @@ public class GeneratorMojo extends AbstractMojo {
                 recursive,
                 limitedNumberOfFieldsInCaseClasses,
                 sourceGenerationFormat,
-                nonNullNamespaceMapping);
+                namespaceMapping);
     }
 }

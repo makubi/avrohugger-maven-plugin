@@ -109,7 +109,7 @@ You can override the following variables in the plugin configuration:
 
 #### namespaceMapping
 * Map namespace in Avro files to custom package name in generated scala files
-* Defaults to **null** (Namespace is not modified)
+* Defaults to **Empty List** (Namespace is not modified)
 
 #### Example
 
@@ -178,10 +178,10 @@ To override the **namespaceMapping** of Avro protocols under the `com.example.pa
         </executions>
         <configuration>
             <namespaceMapping>
-                <mapping>
+                <Mapping>
                     <from>com.example.packagename</from>
-                    <to>com.example.packagenamechanged</to>
-                </mapping>
+                    <to>com.example.packagenamenew.subchange</to>
+                </Mapping>
             </namespaceMapping>
         </configuration>
     </plugin>
