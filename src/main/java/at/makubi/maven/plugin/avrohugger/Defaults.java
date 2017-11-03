@@ -16,6 +16,9 @@
 
 package at.makubi.maven.plugin.avrohugger;
 
+import java.util.Collections;
+import java.util.List;
+
 interface Defaults {
     /** Relative to ${basedir} */
     String relativeSourceDirectory = "src/main/avro";
@@ -24,4 +27,5 @@ interface Defaults {
     String recursive = "false";
     String limitedNumberOfFieldsInCaseClasses = "false";
     String sourceGenerationFormat = "SPECIFIC_RECORD";
+    List<FileInclude> fileIncludes = Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB));
 }

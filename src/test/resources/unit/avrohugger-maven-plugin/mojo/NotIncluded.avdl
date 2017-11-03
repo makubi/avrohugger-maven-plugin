@@ -1,0 +1,8 @@
+@namespace("at.makubi.maven.plugin.model.notincluded")
+
+protocol Model {
+
+  record NotIncludedRecord {
+    string text;
+  }
+}

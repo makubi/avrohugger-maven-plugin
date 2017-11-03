@@ -105,11 +105,22 @@ You can override the following variables in the plugin configuration:
 
 #### sourceGenerationFormat
 * Format for source code generation
+* Possible values are **SCAVRO**, **SPECIFIC_RECORD** and **STANDARD**
 * Defaults to **SPECIFIC_RECORD**
 
 #### namespaceMapping
 * Map namespace in Avro files to custom package name in generated scala files
 * Defaults to **Empty List** (Namespace is not modified)
+
+#### fileIncludes
+* List of paths to be included in generation
+* **fileInclude** elements consist of
+  * **path**: The path to be included
+  * **matchSyntax**: **STRING**, **GLOB** or **REGEX**
+* Paths are relative to the **sourceDirectory**
+* An empty list is overwritten with the default setting
+* For **GLOB** see https://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)
+* Defaults to **FileInclude("\*\*", GLOB)** which includes all files
 
 #### Example
 
@@ -162,6 +173,7 @@ To override the **sourceDirectory**, **outputDirectory**, recurse over **sourceD
 ```
 
 To override the **namespaceMapping** of Avro protocols under the `com.example.packagename` namespace to `com.example.packagenamechanged`
+and include all files in a subdirectory and its subdirectories named **subdir**, use
 
 ```xml
 <plugins>
@@ -183,6 +195,12 @@ To override the **namespaceMapping** of Avro protocols under the `com.example.pa
                     <to>com.example.packagenamenew.subchange</to>
                 </mapping>
             </namespaceMapping>
+            <fileIncludes>
+                <fileInclude>
+                    <path>subdir/**</path>
+                    <matchSyntax>GLOB</matchSyntax>
+                </fileInclude>
+            </fileIncludes>
         </configuration>
     </plugin>
 </plugins>

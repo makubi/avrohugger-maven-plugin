@@ -24,9 +24,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Mojo(name = "generate-scala-sources")
 public class GeneratorMojo extends AbstractMojo {
@@ -49,23 +47,35 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "namespaceMapping")
     private List<Mapping> namespaceMapping = new ArrayList<>();
 
+    @Parameter(property = "fileIncludes", required = true)
+    private List<FileInclude> fileIncludes = Defaults.fileIncludes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();
+
         if(!sourceDirectory.isDirectory()) {
             throw new MojoExecutionException(sourceDirectoryPath + " does not exist or is not a directory");
+        }
+
+        // During tests the list is empty instead of the default value
+        if(fileIncludes.isEmpty()) {
+            fileIncludes = Defaults.fileIncludes;
         }
 
         String outputDirectoryPath = outputDirectory.getAbsolutePath();
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
-        generator.generateScalaFiles(sourceDirectory,
+        generator.generateScalaFiles(
+                sourceDirectory,
                 outputDirectoryPath,
                 getLog(),
                 recursive,
                 limitedNumberOfFieldsInCaseClasses,
                 sourceGenerationFormat,
-                namespaceMapping);
+                namespaceMapping,
+                fileIncludes
+        );
     }
 }
