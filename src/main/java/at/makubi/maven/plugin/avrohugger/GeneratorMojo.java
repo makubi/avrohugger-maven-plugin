@@ -23,6 +23,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Mojo(name = "generate-scala-sources")
 public class GeneratorMojo extends AbstractMojo {
@@ -42,6 +46,9 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "sourceGenerationFormat", defaultValue = Defaults.sourceGenerationFormat, required = true)
     private SourceGenerationFormat sourceGenerationFormat;
 
+    @Parameter(property = "namespaceMapping")
+    private List<Mapping> namespaceMapping = new ArrayList<>();
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();
@@ -53,6 +60,12 @@ public class GeneratorMojo extends AbstractMojo {
         getLog().info("Generating Scala files for schemas in " + sourceDirectoryPath + " to " + outputDirectoryPath);
 
         AvrohuggerGenerator generator = new AvrohuggerGenerator();
-        generator.generateScalaFiles(sourceDirectory, outputDirectoryPath, getLog(), recursive, limitedNumberOfFieldsInCaseClasses, sourceGenerationFormat);
+        generator.generateScalaFiles(sourceDirectory,
+                outputDirectoryPath,
+                getLog(),
+                recursive,
+                limitedNumberOfFieldsInCaseClasses,
+                sourceGenerationFormat,
+                namespaceMapping);
     }
 }
