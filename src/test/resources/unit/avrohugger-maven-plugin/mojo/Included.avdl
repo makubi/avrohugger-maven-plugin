@@ -1,0 +1,8 @@
+@namespace("at.makubi.maven.plugin.model.included")
+
+protocol Model {
+
+  record IncludedRecord {
+    string text;
+  }
+}

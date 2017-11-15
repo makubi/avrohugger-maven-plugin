@@ -17,6 +17,7 @@
 package at.makubi.maven.plugin.avrohugger
 
 import java.io.File
+import java.nio.file.{FileSystems, Path}
 
 import at.makubi.maven.plugin.avrohugger.Implicits._
 import avrohugger.Generator
@@ -26,17 +27,29 @@ import org.apache.maven.plugin.logging.Log
 import java.util
 import collection.JavaConverters._
 
+import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
 
 class AvrohuggerGenerator {
+
   def generateScalaFiles(inputDirectory: File,
-    outputDirectory: String,
-    log: Log,
-    recursive: Boolean,
-    limitedNumberOfFieldsInCaseClasses: Boolean,
-    sourceGenerationFormat: SourceGenerationFormat,
-    namespaceMappings: util.List[Mapping]
-  ): Unit = {
+                         outputDirectory: String,
+                         log: Log,
+                         recursive: Boolean,
+                         limitedNumberOfFieldsInCaseClasses: Boolean,
+                         sourceGenerationFormat: SourceGenerationFormat,
+                         namespaceMappings: util.List[Mapping],
+                         fileIncludes: java.util.List[FileInclude]): Unit = {
+    val filter = { pathname: File =>
+      val filePathRelativeToInputDirectory = inputDirectory.toPath.relativize(pathname.toPath)
+      log.debug(s"Path ${pathname.toString} relative to input directory ${inputDirectory.toString} is $filePathRelativeToInputDirectory")
+
+      fileIncludes.exists { include =>
+        log.debug(s"Testing include ${include.getPath} with match syntax ${include.getMatchSyntax}")
+        accept(filePathRelativeToInputDirectory, include)
+      }
+    }
+
     val sourceFormat = sourceGenerationFormat match {
       case SourceGenerationFormat.SCAVRO => Scavro
       case SourceGenerationFormat.SPECIFIC_RECORD => SpecificRecord
@@ -47,7 +60,7 @@ class AvrohuggerGenerator {
 
     val generator = new Generator(sourceFormat, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses, avroScalaCustomNamespace = mappings)
 
-    listFiles(inputDirectory, recursive).foreach { schemaFile =>
+    listFiles(inputDirectory, recursive).filter(filter).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)
@@ -69,5 +82,28 @@ class AvrohuggerGenerator {
 
     schemaFiles
   }
+
+  protected def accept(filePathRelativeToInputDirectory: Path, fileInclude: FileInclude): Boolean = {
+    val pathText = fileInclude.getPath
+    val matchSyntax = fileInclude.getMatchSyntax
+
+    matchSyntax match {
+      case MatchSyntax.STRING =>
+        acceptString(filePathRelativeToInputDirectory, pathText)
+      case MatchSyntax.GLOB =>
+        acceptGlob(filePathRelativeToInputDirectory, pathText)
+      case MatchSyntax.REGEX =>
+        acceptRegex(filePathRelativeToInputDirectory, pathText)
+    }
+  }
+
+  protected def acceptString(filePathRelativeToInputDirectory: Path, pathText: String): Boolean =
+    filePathRelativeToInputDirectory.toString == pathText
+
+  protected def acceptRegex(filePathRelativeToInputDirectory: Path, pathText: String): Boolean =
+    filePathRelativeToInputDirectory.toString.matches(pathText)
+
+  protected def acceptGlob(filePathRelativeToInputDirectory: Path, pathText: String): Boolean =
+    FileSystems.getDefault.getPathMatcher("glob:" + pathText).matches(filePathRelativeToInputDirectory)
 
 }

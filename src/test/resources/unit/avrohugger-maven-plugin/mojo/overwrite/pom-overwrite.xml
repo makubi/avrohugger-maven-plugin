@@ -25,6 +25,28 @@
                             <to>at.makubi.maven.plugin.model.namespacechanged.subchange</to>
                         </mapping>
                     </namespaceMapping>
+                    <fileIncludes>
+                        <fileInclude>
+                            <path>Api.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
+                        <fileInclude>
+                            <path>RecordWith25Fields.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
+                        <fileInclude>
+                            <path>ChangedNamespace.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
+                        <fileInclude>
+                            <path>subdir/SubApi.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
+                        <fileInclude>
+                            <path>Included.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
+                    </fileIncludes>
                 </configuration>
             </plugin>
         </plugins>
