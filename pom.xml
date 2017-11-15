@@ -4,7 +4,7 @@
 
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin</artifactId>
-    <version>1.5</version>
+    <version>1.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>Avrohugger Maven Plugin</name>
@@ -223,7 +223,7 @@
         <url>https://github.com/makubi/avrohugger-maven-plugin</url>
         <connection>scm:git:git@github.com:makubi/avrohugger-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:makubi/avrohugger-maven-plugin.git</developerConnection>
-        <tag>avrohugger-maven-plugin-1.5</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
