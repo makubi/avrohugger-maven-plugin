@@ -24,7 +24,7 @@ The plugin currently supports one goal:
 <plugin>
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <executions>
         <execution>
             <phase>generate-sources</phase>
