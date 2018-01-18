@@ -16,6 +16,8 @@
 
 package at.makubi.maven.plugin.avrohugger;
 
+import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -28,4 +30,5 @@ interface Defaults {
     String limitedNumberOfFieldsInCaseClasses = "false";
     String sourceGenerationFormat = "SPECIFIC_RECORD";
     List<FileInclude> fileIncludes = Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB));
+    TypeOverrides typeOverrides = new TypeOverrides();
 }

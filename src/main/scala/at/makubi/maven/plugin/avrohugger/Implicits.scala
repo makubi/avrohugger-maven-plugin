@@ -18,7 +18,63 @@ package at.makubi.maven.plugin.avrohugger
 
 import java.io.File
 
+import avrohugger.types.AvroScalaTypes
+
 object Implicits {
+
+  implicit class AvroScalaTypesOps(avroScalaTypes: AvroScalaTypes) {
+    def withOptionalArrayType(optionalArray: avrohugger.types.AvroScalaArrayType): AvroScalaTypes =
+      nonNullOrDefault(optionalArray)(array => avroScalaTypes.copy(array = array))
+
+    def withOptionalEnumType(optionalEnum: avrohugger.types.AvroScalaEnumType): AvroScalaTypes =
+      nonNullOrDefault(optionalEnum)(enum => avroScalaTypes.copy(enum = enum))
+
+    def withOptionalFixedType(optionalFixed: avrohugger.types.AvroScalaFixedType): AvroScalaTypes =
+      nonNullOrDefault(optionalFixed)(fixed => avroScalaTypes.copy(fixed = fixed))
+
+    def withOptionalMapType(optionalMap: avrohugger.types.AvroScalaMapType): AvroScalaTypes =
+      nonNullOrDefault(optionalMap)(map => avroScalaTypes.copy(map = map))
+
+    def withOptionalProtocolType(optionalProtocol: avrohugger.types.AvroScalaProtocolType): AvroScalaTypes =
+      nonNullOrDefault(optionalProtocol)(protocol => avroScalaTypes.copy(protocol = protocol))
+
+    def withOptionalRecordType(optionalRecord: avrohugger.types.AvroScalaRecordType): AvroScalaTypes =
+      nonNullOrDefault(optionalRecord)(record => avroScalaTypes.copy(record = record))
+
+    def withOptionalUnionType(optionalUnion: avrohugger.types.AvroScalaUnionType): AvroScalaTypes =
+      nonNullOrDefault(optionalUnion)(union => avroScalaTypes.copy(union = union))
+
+
+    def withOptionalBooleanType(optionalBoolean: avrohugger.types.AvroScalaBooleanType): AvroScalaTypes =
+      nonNullOrDefault(optionalBoolean)(boolean => avroScalaTypes.copy(boolean = boolean))
+
+    def withOptionalBytesType(optionalBytes: avrohugger.types.AvroScalaBytesType): AvroScalaTypes =
+      nonNullOrDefault(optionalBytes)(bytes => avroScalaTypes.copy(bytes = bytes))
+
+    def withOptionalDoubleType(optionalDouble: avrohugger.types.AvroScalaNumberType): AvroScalaTypes =
+      nonNullOrDefault(optionalDouble)(double => avroScalaTypes.copy(double = double))
+
+    def withOptionalFloatType(optionalFloat: avrohugger.types.AvroScalaNumberType): AvroScalaTypes =
+      nonNullOrDefault(optionalFloat)(float => avroScalaTypes.copy(float = float))
+
+    def withOptionalIntType(optionalInt: avrohugger.types.AvroScalaNumberType): AvroScalaTypes =
+      nonNullOrDefault(optionalInt)(int => avroScalaTypes.copy(int = int))
+
+    def withOptionalLongType(optionalLong: avrohugger.types.AvroScalaNumberType): AvroScalaTypes =
+      nonNullOrDefault(optionalLong)(long => avroScalaTypes.copy(long = long))
+
+    def withOptionalNullType(optionalNull: avrohugger.types.AvroScalaNullType): AvroScalaTypes =
+      nonNullOrDefault(optionalNull)(`null` => avroScalaTypes.copy(`null` = `null`))
+
+    def withOptionalStringType(optionalString: avrohugger.types.AvroScalaStringType): AvroScalaTypes =
+      nonNullOrDefault(optionalString)(string => avroScalaTypes.copy(string = string))
+
+    private def nonNullOrDefault[T](maybeNull: T)(f: T => AvroScalaTypes): AvroScalaTypes = {
+      Option(maybeNull).map { t =>
+        f(t)
+      }.getOrElse(avroScalaTypes)
+    }
+  }
 
   implicit class FileArrayEnricher(files: Array[File]) {
 

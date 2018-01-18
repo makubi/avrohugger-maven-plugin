@@ -16,6 +16,7 @@
 
 package at.makubi.maven.plugin.avrohugger;
 
+import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -57,7 +58,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
         Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)));
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
     }
@@ -72,7 +73,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala");
         Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)));
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
         failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);

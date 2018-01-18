@@ -40,14 +40,8 @@ public class GeneratorMojoTest extends AbstractHarnessMojoTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        createDir(testRunnerBaseDir);
-    }
-
-    @After
-    public void tearDown() throws Exception {
         FileUtils.deleteDirectory(testRunnerBaseDir.toFile());
-
-        super.tearDown();
+        createDir(testRunnerBaseDir);
     }
 
     public void testGenerateScalaSourcesWithDefaultSettings() throws Exception {
@@ -103,6 +97,7 @@ public class GeneratorMojoTest extends AbstractHarnessMojoTestCase {
         final Path changedNamespaceAvdl = Paths.get("ChangedNamespace.avdl");
         final Path includedAvdl = Paths.get("Included.avdl");
         final Path notIncludedAvdl = Paths.get("NotIncluded.avdl");
+        final Path typeOverridesAvdl = Paths.get("TypeOverrides.avdl");
         final String testPomName = "pom-overwrite.xml";
 
         createDir(testAvroSourceDir);
@@ -120,6 +115,7 @@ public class GeneratorMojoTest extends AbstractHarnessMojoTestCase {
         Files.copy(testResourcesDir.resolve(changedNamespaceAvdl), testAvroSourceDir.resolve(changedNamespaceAvdl), StandardCopyOption.REPLACE_EXISTING);
         Files.copy(testResourcesDir.resolve(includedAvdl), testAvroSourceDir.resolve(includedAvdl), StandardCopyOption.REPLACE_EXISTING);
         Files.copy(testResourcesDir.resolve(notIncludedAvdl), testAvroSourceDir.resolve(notIncludedAvdl), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(testResourcesDir.resolve(typeOverridesAvdl), testAvroSourceDir.resolve(typeOverridesAvdl), StandardCopyOption.REPLACE_EXISTING);
 
         GeneratorMojo generatorMojo = (GeneratorMojo) lookupMojo("generate-scala-sources", getTestFile(pomPath.toString()));
         generatorMojo.execute();
@@ -140,6 +136,9 @@ public class GeneratorMojoTest extends AbstractHarnessMojoTestCase {
         // Test 'fileIncludes'
         assertTrue("IncludedRecord is missing in test source directory", testRunnerProjectBuildDir.resolve(relativeOutputDirectory).resolve("at/makubi/maven/plugin/model/included/IncludedRecord.scala").toFile().exists());
         assertFalse("NotIncludedRecord exists in test source directory", testRunnerProjectBuildDir.resolve(relativeOutputDirectory).resolve("at/makubi/maven/plugin/model/notincluded/NotIncludedRecord.scala").toFile().exists());
+
+        // Test 'typeOverrides'
+        failTestIfFilesDiffer(overwriteTestResourcesDir.resolve("TypeOverridesRecord.scala"), testRunnerProjectBuildDir.resolve(relativeOutputDirectory).resolve("at/makubi/maven/plugin/model/TypeOverridesRecord.scala"));
     }
 
 }
