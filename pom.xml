@@ -18,13 +18,13 @@
         <scala.binary.version>2.11</scala.binary.version>
         <scala.version>${scala.binary.version}.11</scala.version>
 
-        <maven.plugin.api.version>3.5.0</maven.plugin.api.version>
+        <maven.plugin.api.version>3.5.2</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.5</maven.plugin.annotations.version>
-        <avrohugger.version>0.16.0</avrohugger.version>
+        <avrohugger.version>1.0.0-RC2</avrohugger.version>
         <junit.version>4.12</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
-        <commons.io.version>2.5</commons.io.version>
-        <jgit.version>4.8.0.201706111038-r</jgit.version>
+        <commons.io.version>2.6</commons.io.version>
+        <jgit.version>4.10.0.201712302008-r</jgit.version>
         <logback.version>1.2.3</logback.version>
 
         <scala.maven.plugin.version>3.3.1</scala.maven.plugin.version>
@@ -57,12 +57,12 @@
         </dependency>
         <dependency>
             <groupId>com.julianpeeters</groupId>
-            <artifactId>avrohugger-core_2.11</artifactId>
+            <artifactId>avrohugger-core_${scala.binary.version}</artifactId>
             <version>${avrohugger.version}</version>
         </dependency>
         <dependency>
             <groupId>com.julianpeeters</groupId>
-            <artifactId>avrohugger-filesorter_2.11</artifactId>
+            <artifactId>avrohugger-filesorter_${scala.binary.version}</artifactId>
             <version>${avrohugger.version}</version>
         </dependency>
 

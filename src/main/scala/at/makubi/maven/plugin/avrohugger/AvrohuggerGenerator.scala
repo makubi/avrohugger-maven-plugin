@@ -25,8 +25,8 @@ import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
 import org.apache.maven.plugin.logging.Log
 import java.util
-import collection.JavaConverters._
 
+import collection.JavaConverters._
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
 
@@ -39,7 +39,8 @@ class AvrohuggerGenerator {
                          limitedNumberOfFieldsInCaseClasses: Boolean,
                          sourceGenerationFormat: SourceGenerationFormat,
                          namespaceMappings: util.List[Mapping],
-                         fileIncludes: java.util.List[FileInclude]): Unit = {
+                         fileIncludes: java.util.List[FileInclude],
+                         typeOverrides: TypeOverrides): Unit = {
     val filter = { pathname: File =>
       val filePathRelativeToInputDirectory = inputDirectory.toPath.relativize(pathname.toPath)
       log.debug(s"Path ${pathname.toString} relative to input directory ${inputDirectory.toString} is $filePathRelativeToInputDirectory")
@@ -58,7 +59,16 @@ class AvrohuggerGenerator {
 
     val mappings = namespaceMappings.asScala.map { m => m.from -> m.to }.toMap
 
-    val generator = new Generator(sourceFormat, restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses, avroScalaCustomNamespace = mappings)
+    val customTypes = sourceFormat.defaultTypes
+      .withOptionalArrayType(typeOverrides.getArrayType)
+      .withOptionalEnumType(typeOverrides.getEnumType)
+
+    val generator = new Generator(
+      format = sourceFormat,
+      restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses,
+      avroScalaCustomNamespace = mappings,
+      avroScalaCustomTypes = if (customTypes != sourceFormat.defaultTypes) Some(customTypes) else None
+    )
 
     listFiles(inputDirectory, recursive).filter(filter).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")

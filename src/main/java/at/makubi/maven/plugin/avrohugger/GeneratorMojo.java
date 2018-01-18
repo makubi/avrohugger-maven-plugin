@@ -50,6 +50,9 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "fileIncludes", required = true)
     private List<FileInclude> fileIncludes = Defaults.fileIncludes;
 
+    @Parameter(property = "typeOverrides")
+    private TypeOverrides typeOverrides = new TypeOverrides();
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();

@@ -18,7 +18,23 @@ package at.makubi.maven.plugin.avrohugger
 
 import java.io.File
 
+import avrohugger.types.AvroScalaTypes
+
 object Implicits {
+
+  implicit class AvroScalaTypesOps(avroScalaTypes: AvroScalaTypes) {
+    def withOptionalArrayType(optionalArray: avrohugger.types.AvroScalaArrayType): AvroScalaTypes =
+      nonNullOrDefault(optionalArray)(array => avroScalaTypes.copy(array = array))
+
+    def withOptionalEnumType(optionalEnum: avrohugger.types.AvroScalaEnumType): AvroScalaTypes =
+      nonNullOrDefault(optionalEnum)(enum => avroScalaTypes.copy(enum = enum))
+
+    private def nonNullOrDefault[T](maybeNull: T)(f: T => AvroScalaTypes): AvroScalaTypes = {
+      Option(maybeNull).map { t =>
+        f(t)
+      }.getOrElse(avroScalaTypes)
+    }
+  }
 
   implicit class FileArrayEnricher(files: Array[File]) {
 

@@ -28,4 +28,5 @@ interface Defaults {
     String limitedNumberOfFieldsInCaseClasses = "false";
     String sourceGenerationFormat = "SPECIFIC_RECORD";
     List<FileInclude> fileIncludes = Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB));
+    TypeOverrides typeOverrides = new TypeOverrides();
 }
