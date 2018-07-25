@@ -16,6 +16,7 @@
 
 package at.makubi.maven.plugin.avrohugger;
 
+import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -50,6 +51,9 @@ public class GeneratorMojo extends AbstractMojo {
     @Parameter(property = "fileIncludes", required = true)
     private List<FileInclude> fileIncludes = Defaults.fileIncludes;
 
+    @Parameter(property = "typeOverrides")
+    private TypeOverrides typeOverrides = new TypeOverrides();
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String sourceDirectoryPath = sourceDirectory.getAbsolutePath();
@@ -75,7 +79,8 @@ public class GeneratorMojo extends AbstractMojo {
                 limitedNumberOfFieldsInCaseClasses,
                 sourceGenerationFormat,
                 namespaceMapping,
-                fileIncludes
+                fileIncludes,
+                typeOverrides
         );
     }
 }

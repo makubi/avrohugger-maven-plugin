@@ -122,6 +122,28 @@ You can override the following variables in the plugin configuration:
 * For **GLOB** see https://docs.oracle.com/javase/7/docs/api/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)
 * Defaults to **FileInclude("\*\*", GLOB)** which includes all files
 
+#### typeOverrides
+* Override for types for generation
+* Possible elements
+  * Complex
+    * arrayType
+    * enumType
+    * fixedType
+    * mapType
+    * protocolType
+    * recordType
+    * unionType
+  * Primitive
+    * booleanType
+    * bytesType
+    * doubleType
+    * floatType
+    * intType
+    * longType
+    * nullType
+    * stringType
+* Defaults to no overrides
+
 #### Example
 
 To override the **sourceDirectory** and **outputDirectory**, use

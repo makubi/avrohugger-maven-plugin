@@ -1,0 +1,9 @@
+@namespace("at.makubi.maven.plugin.model")
+
+protocol TypeOverridesModel {
+
+  record TypeOverridesRecord {
+    string text;
+    array<string> myArray;
+  }
+}

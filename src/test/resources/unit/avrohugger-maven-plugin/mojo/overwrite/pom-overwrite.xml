@@ -46,7 +46,14 @@
                             <path>Included.avdl</path>
                             <matchSyntax>STRING</matchSyntax>
                         </fileInclude>
+                        <fileInclude>
+                            <path>TypeOverrides.avdl</path>
+                            <matchSyntax>STRING</matchSyntax>
+                        </fileInclude>
                     </fileIncludes>
+                    <typeOverrides>
+                        <arrayType>SCALA_ARRAY</arrayType>
+                    </typeOverrides>
                 </configuration>
             </plugin>
         </plugins>
