@@ -3,7 +3,7 @@ package at.makubi.maven.plugin.model
 
 import scala.annotation.switch
 
-case class Record(var text: String) extends org.apache.avro.specific.SpecificRecordBase {
+final case class Record(var text: String) extends org.apache.avro.specific.SpecificRecordBase {
   def this() = this("")
   def get(field$: Int): AnyRef = {
     (field$: @switch) match {
