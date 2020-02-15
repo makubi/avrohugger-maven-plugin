@@ -28,8 +28,7 @@ import java.util
 
 import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides
 
-import collection.JavaConverters._
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 import scala.collection.mutable.ListBuffer
 
 class AvrohuggerGenerator {
@@ -47,7 +46,7 @@ class AvrohuggerGenerator {
       val filePathRelativeToInputDirectory = inputDirectory.toPath.relativize(pathname.toPath)
       log.debug(s"Path ${pathname.toString} relative to input directory ${inputDirectory.toString} is $filePathRelativeToInputDirectory")
 
-      fileIncludes.exists { include =>
+      fileIncludes.asScala.exists { include =>
         log.debug(s"Testing include ${include.getPath} with match syntax ${include.getMatchSyntax}")
         accept(filePathRelativeToInputDirectory, include)
       }
@@ -78,7 +77,7 @@ class AvrohuggerGenerator {
       .withOptionalNullType(typeOverrides.getNullType)
       .withOptionalStringType(typeOverrides.getStringType)
 
-    val generator = new Generator(
+    val generator = Generator(
       format = sourceFormat,
       restrictedFieldNumber = limitedNumberOfFieldsInCaseClasses,
       avroScalaCustomNamespace = mappings,
@@ -105,7 +104,7 @@ class AvrohuggerGenerator {
       schemaFiles ++= allFiles.filter { _.isDirectory }.flatMap { listFiles(_, true) }
     }
 
-    schemaFiles
+    schemaFiles.toSeq
   }
 
   protected def accept(filePathRelativeToInputDirectory: Path, fileInclude: FileInclude): Boolean = {

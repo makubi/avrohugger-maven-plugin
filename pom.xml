@@ -14,25 +14,25 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java.version>1.7</java.version>
-        <scala.binary.version>2.11</scala.binary.version>
-        <scala.version>${scala.binary.version}.11</scala.version>
+        <java.version>11</java.version>
+        <scala.binary.version>2.13</scala.binary.version>
+        <scala.version>${scala.binary.version}.1</scala.version>
 
-        <maven.plugin.api.version>3.5.2</maven.plugin.api.version>
-        <maven.plugin.annotations.version>3.5</maven.plugin.annotations.version>
-        <avrohugger.version>1.0.0-RC12</avrohugger.version>
-        <junit.version>4.12</junit.version>
+        <maven.plugin.api.version>3.6.3</maven.plugin.api.version>
+        <maven.plugin.annotations.version>3.6.0</maven.plugin.annotations.version>
+        <avrohugger.version>1.0.0-RC22</avrohugger.version>
+        <junit.version>4.13</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.6</commons.io.version>
-        <jgit.version>4.10.0.201712302008-r</jgit.version>
+        <jgit.version>5.3.7.202002110540-r</jgit.version>
         <logback.version>1.2.3</logback.version>
 
-        <scala.maven.plugin.version>3.3.1</scala.maven.plugin.version>
-        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+        <scala.maven.plugin.version>4.3.1</scala.maven.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <nexus.staging.maven.plugin.version>1.6.7</nexus.staging.maven.plugin.version>
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
-        <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
-        <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
         <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
     </properties>
@@ -127,6 +127,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven.deploy.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.6.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
