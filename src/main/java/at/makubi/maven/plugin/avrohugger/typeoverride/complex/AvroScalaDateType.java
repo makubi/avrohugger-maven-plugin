@@ -1,4 +1,4 @@
-package at.makubi.maven.plugin.avrohugger.typeoverride.primitive;
+package at.makubi.maven.plugin.avrohugger.typeoverride.complex;
 
 
 public enum AvroScalaDateType {
