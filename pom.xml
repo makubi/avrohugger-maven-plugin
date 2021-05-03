@@ -23,7 +23,7 @@
         <avrohugger.version>1.0.0-RC22</avrohugger.version>
         <junit.version>4.13.1</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <jgit.version>5.3.7.202002110540-r</jgit.version>
         <logback.version>1.2.3</logback.version>
 
