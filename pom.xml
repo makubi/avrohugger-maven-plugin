@@ -16,7 +16,7 @@
 
         <java.version>11</java.version>
         <scala.binary.version>2.13</scala.binary.version>
-        <scala.version>${scala.binary.version}.5</scala.version>
+        <scala.version>2.13.6</scala.version>
 
         <maven.plugin.api.version>3.8.1</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.6.1</maven.plugin.annotations.version>
