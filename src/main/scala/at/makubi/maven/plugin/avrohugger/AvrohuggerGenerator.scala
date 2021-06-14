@@ -76,6 +76,8 @@ class AvrohuggerGenerator {
       .withOptionalLongType(typeOverrides.getLongType)
       .withOptionalNullType(typeOverrides.getNullType)
       .withOptionalStringType(typeOverrides.getStringType)
+      .withOptionalTimestampMillisType(typeOverrides.getTimestampMillisType)
+      .withOptionalDateType(typeOverrides.getDateType)
 
     val generator = Generator(
       format = sourceFormat,

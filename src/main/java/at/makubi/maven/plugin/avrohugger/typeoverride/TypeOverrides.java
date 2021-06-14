@@ -21,6 +21,8 @@ public class TypeOverrides {
     private avrohugger.types.AvroScalaNumberType longType;
     private avrohugger.types.AvroScalaNullType nullType;
     private avrohugger.types.AvroScalaStringType stringType;
+    private avrohugger.types.AvroScalaTimestampMillisType timestampMillisType;
+    private avrohugger.types.AvroScalaDateType dateType;
 
     public TypeOverrides() {}
 
@@ -143,5 +145,21 @@ public class TypeOverrides {
 
     public void setStringType(AvroScalaStringType stringType) {
         this.stringType = stringType.avrohuggerScalaStringType;
+    }
+
+    public avrohugger.types.AvroScalaTimestampMillisType getTimestampMillisType() {
+        return timestampMillisType;
+    }
+
+    public void setTimestampMillisType(AvroScalaTimestampMillisType timestampMillisType) {
+        this.timestampMillisType = timestampMillisType.avrohuggerScalaTimestampMillisType;
+    }
+
+    public avrohugger.types.AvroScalaDateType getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(AvroScalaDateType dateType) {
+        this.dateType = dateType.avrohuggerScalaDateType;
     }
 }
