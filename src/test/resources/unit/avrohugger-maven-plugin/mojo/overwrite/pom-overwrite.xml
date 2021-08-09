@@ -53,6 +53,8 @@
                     </fileIncludes>
                     <typeOverrides>
                         <arrayType>SCALA_ARRAY</arrayType>
+                        <timestampMillisType>TIMESTAMP</timestampMillisType>
+                        <dateType>TIME_LOCALDATE</dateType>
                     </typeOverrides>
                 </configuration>
             </plugin>
