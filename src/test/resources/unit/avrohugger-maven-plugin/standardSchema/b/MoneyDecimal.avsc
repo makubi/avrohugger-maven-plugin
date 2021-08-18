@@ -1,9 +1,7 @@
 {
-  "type": "fixed",
-  "size": 12,
   "namespace": "com.test",
   "name": "MoneyDecimal",
-  "logicalType": "decimal",
-  "precision": 28,
-  "scale": 15
+  "type": "enum",
+  "doc": "Fully-qualified dependency",
+  "symbols" : ["A", "AA", "AAA"]
 }

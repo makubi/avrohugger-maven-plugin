@@ -105,7 +105,7 @@ class AvrohuggerGenerator {
     schemaFiles ++= files.withSuffix(".avpr")
     schemaFiles ++= files.withSuffix(".avro")
 
-    schemaFiles
+    schemaFiles.toSeq
   }
 
   protected def accept(filePathRelativeToInputDirectory: Path, fileInclude: FileInclude): Boolean = {
