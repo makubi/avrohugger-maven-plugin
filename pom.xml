@@ -4,7 +4,7 @@
 
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin</artifactId>
-    <version>1.8</version>
+    <version>1.8-TTD</version>
     <packaging>maven-plugin</packaging>
 
     <name>Avrohugger Maven Plugin</name>
@@ -20,7 +20,7 @@
 
         <maven.plugin.api.version>3.8.1</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.6.1</maven.plugin.annotations.version>
-        <avrohugger.version>1.0.0-RC25</avrohugger.version>
+        <avrohugger.version>1.0.0-RC25-TTD</avrohugger.version>
         <junit.version>4.13.2</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.11.0</commons.io.version>
