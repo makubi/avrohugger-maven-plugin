@@ -24,24 +24,30 @@ import avrohugger.Generator
 import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
 import org.apache.maven.plugin.logging.Log
-import java.util
 
+import java.util
 import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides
 
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable.ListBuffer
 
-class AvrohuggerGenerator {
+class AvrohuggerGenerator(fileLister: FileListHelper) {
 
-  def generateScalaFiles(inputDirectory: File,
-                         outputDirectory: String,
-                         log: Log,
-                         recursive: Boolean,
-                         limitedNumberOfFieldsInCaseClasses: Boolean,
-                         sourceGenerationFormat: SourceGenerationFormat,
-                         namespaceMappings: util.List[Mapping],
-                         fileIncludes: java.util.List[FileInclude],
-                         typeOverrides: TypeOverrides): Unit = {
+  def this() = {
+    this(new DefaultFileListHelper)
+  }
+
+  def generateScalaFiles(
+      inputDirectory: File,
+      outputDirectory: String,
+      log: Log,
+      recursive: Boolean,
+      limitedNumberOfFieldsInCaseClasses: Boolean,
+      sourceGenerationFormat: SourceGenerationFormat,
+      namespaceMappings: util.List[Mapping],
+      fileIncludes: java.util.List[FileInclude],
+      typeOverrides: TypeOverrides
+  ): Unit = {
     val filter = { pathname: File =>
       val filePathRelativeToInputDirectory = inputDirectory.toPath.relativize(pathname.toPath)
       log.debug(s"Path ${pathname.toString} relative to input directory ${inputDirectory.toString} is $filePathRelativeToInputDirectory")
@@ -84,25 +90,20 @@ class AvrohuggerGenerator {
       avroScalaCustomTypes = if (customTypes != sourceFormat.defaultTypes) Some(customTypes) else None
     )
 
-    listFiles(inputDirectory, recursive).filter(filter).foreach { schemaFile =>
+    sortSchemaFiles(fileLister.listFiles(inputDirectory, recursive).filter(filter)).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)
     }
   }
 
-  protected def listFiles(inputDirectory: File, recursive: Boolean): Seq[File] = {
-    val allFiles = inputDirectory.listFiles()
+  protected def sortSchemaFiles(files: Seq[File]): Seq[File] = {
     val schemaFiles = new ListBuffer[File]()
 
-    schemaFiles ++= AvdlFileSorter.sortSchemaFiles(allFiles.withSuffix(".avdl"))
-    schemaFiles ++= AvscFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
-    schemaFiles ++= allFiles.withSuffix(".avpr")
-    schemaFiles ++= allFiles.withSuffix(".avro")
-
-    if (recursive) {
-      schemaFiles ++= allFiles.filter { _.isDirectory }.flatMap { listFiles(_, true) }
-    }
+    schemaFiles ++= AvdlFileSorter.sortSchemaFiles(files.withSuffix(".avdl"))
+    schemaFiles ++= AvscFileSorter.sortSchemaFiles(files.withSuffix(".avsc"))
+    schemaFiles ++= files.withSuffix(".avpr")
+    schemaFiles ++= files.withSuffix(".avro")
 
     schemaFiles.toSeq
   }

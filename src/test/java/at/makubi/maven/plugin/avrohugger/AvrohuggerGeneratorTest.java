@@ -63,13 +63,31 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         failTestIfFilesDiffer(expectedRecord, actualRecord);
     }
 
+    public void testAvrohuggerGeneratorWithSort() throws IOException {
+        Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
+        Path schemaDirectory = inputDirectory.resolve("standardSchema");
+
+        Path expectedRecord = inputDirectory.resolve("expected/ARecord.scala");
+        Path expectedEnum = inputDirectory.resolve("expected/MoneyDecimal.scala");
+        Path actualRecord = outputDirectory.resolve("com/test/ARecord/ARecord.scala");
+        Path actualEnum = outputDirectory.resolve("com/test/MoneyDecimal.scala");
+
+        avrohuggerGenerator.generateScalaFiles(
+                schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false,
+                SourceGenerationFormat.STANDARD, Collections.<Mapping>emptyList(),
+                Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
+
+        failTestIfFilesDiffer(expectedRecord, actualRecord);
+        failTestIfFilesDiffer(expectedEnum, actualEnum);
+    }
+
     public void testAvrohuggerGeneratorRecursive() throws IOException {
         Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
         Path schemaDirectory = inputDirectory.resolve("schema");
 
         Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
         Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
-        
+
         Path expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala");
         Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
 
@@ -79,4 +97,18 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);
     }
 
+    public void testAvrohuggerGeneratorNotRecursive() throws IOException {
+        Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
+        Path schemaDirectory = inputDirectory.resolve("schema");
+
+        Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
+        Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
+
+        Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
+
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
+
+        failTestIfFilesDiffer(expectedRecord, actualRecord);
+        assertFalse(actualSubRecord + " exists, but should not", actualSubRecord.toFile().exists());
+    }
 }
