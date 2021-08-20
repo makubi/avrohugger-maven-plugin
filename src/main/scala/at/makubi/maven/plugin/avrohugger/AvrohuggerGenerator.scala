@@ -32,17 +32,15 @@ import scala.collection.mutable.ListBuffer
 
 class AvrohuggerGenerator {
 
-  def generateScalaFiles(
-      inputDirectory: File,
-      outputDirectory: String,
-      log: Log,
-      recursive: Boolean,
-      limitedNumberOfFieldsInCaseClasses: Boolean,
-      sourceGenerationFormat: SourceGenerationFormat,
-      namespaceMappings: util.List[Mapping],
-      fileIncludes: java.util.List[FileInclude],
-      typeOverrides: TypeOverrides
-  ): Unit = {
+  def generateScalaFiles(inputDirectory: File,
+                         outputDirectory: String,
+                         log: Log,
+                         recursive: Boolean,
+                         limitedNumberOfFieldsInCaseClasses: Boolean,
+                         sourceGenerationFormat: SourceGenerationFormat,
+                         namespaceMappings: util.List[Mapping],
+                         fileIncludes: java.util.List[FileInclude],
+                         typeOverrides: TypeOverrides): Unit = {
     val filter = { pathname: File =>
       val filePathRelativeToInputDirectory = inputDirectory.toPath.relativize(pathname.toPath)
       log.debug(s"Path ${pathname.toString} relative to input directory ${inputDirectory.toString} is $filePathRelativeToInputDirectory")

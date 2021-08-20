@@ -41,9 +41,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         super.setUp();
 
         avrohuggerGenerator = new AvrohuggerGenerator();
-        outputDirectory = Files.createTempDirectory(
-                Paths.get(getBasedir()).resolve("target"),
-                AvrohuggerGeneratorTest.class.getCanonicalName());
+        outputDirectory = Files.createTempDirectory(Paths.get(getBasedir()).resolve("target"), AvrohuggerGeneratorTest.class.getCanonicalName());
     }
 
     @After
@@ -60,10 +58,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
         Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
 
-        avrohuggerGenerator.generateScalaFiles(
-                schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false,
-                SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(),
-                Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
     }
@@ -93,9 +88,7 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedSubRecord = inputDirectory.resolve("expected/SubRecord.scala");
         Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
 
-        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false,
-                SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(),
-                Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
 
         failTestIfFilesDiffer(expectedRecord, actualRecord);
         failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);
