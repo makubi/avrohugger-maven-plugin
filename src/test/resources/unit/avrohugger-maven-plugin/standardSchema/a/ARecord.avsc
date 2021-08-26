@@ -1,0 +1,30 @@
+{
+  "type": "record",
+  "name": "ARecord",
+  "namespace": "com.test.ARecord",
+  "fields": [
+    {
+      "name": "GroupId",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "MediaCostCPMInUSD",
+      "aliases": ["WinningPriceCPMInBucks"],
+      "type": [
+        "null",
+        "com.test.MoneyDecimal"
+      ],
+      "tsvIndex": 5
+    },
+    {
+      "name": "SupplyVendor",
+      "aliases": ["SupplyVendorName"],
+      "type": [
+        "null",
+        "string"
+      ],
+      "tsvIndex": 6
+    }
+  ]
+}

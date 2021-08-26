@@ -18,14 +18,13 @@ package at.makubi.maven.plugin.avrohugger
 
 import java.io.File
 import java.nio.file.{FileSystems, Path}
-
 import at.makubi.maven.plugin.avrohugger.Implicits._
 import avrohugger.Generator
 import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
 import org.apache.maven.plugin.logging.Log
-import java.util
 
+import java.util
 import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides
 
 import scala.jdk.CollectionConverters._
@@ -84,27 +83,29 @@ class AvrohuggerGenerator {
       avroScalaCustomTypes = if (customTypes != sourceFormat.defaultTypes) Some(customTypes) else None
     )
 
-    listFiles(inputDirectory, recursive).filter(filter).foreach { schemaFile =>
+    sortSchemaFiles(listFiles(Seq(inputDirectory), recursive).filter(filter)).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)
     }
   }
 
-  protected def listFiles(inputDirectory: File, recursive: Boolean): Seq[File] = {
-    val allFiles = inputDirectory.listFiles()
+  protected def listFiles(inputFiles: Seq[File], recursive: Boolean, accFiles: Seq[File] = Seq.empty): Seq[File] = {
+    val files = inputFiles.filter(_.isFile) ++: accFiles
+    val subFiles = inputFiles.filter(_.isDirectory).flatMap(_.listFiles())
+    if (recursive && subFiles.nonEmpty) listFiles(subFiles, recursive, files)
+    else files ++: subFiles.filter(_.isFile)
+  }
+
+  protected def sortSchemaFiles(files: Seq[File]): Seq[File] = {
     val schemaFiles = new ListBuffer[File]()
 
-    schemaFiles ++= AvdlFileSorter.sortSchemaFiles(allFiles.withSuffix(".avdl"))
-    schemaFiles ++= AvscFileSorter.sortSchemaFiles(allFiles.withSuffix(".avsc"))
-    schemaFiles ++= allFiles.withSuffix(".avpr")
-    schemaFiles ++= allFiles.withSuffix(".avro")
+    schemaFiles ++= AvdlFileSorter.sortSchemaFiles(files.withSuffix(".avdl"))
+    schemaFiles ++= AvscFileSorter.sortSchemaFiles(files.withSuffix(".avsc"))
+    schemaFiles ++= files.withSuffix(".avpr")
+    schemaFiles ++= files.withSuffix(".avro")
 
-    if (recursive) {
-      schemaFiles ++= allFiles.filter { _.isDirectory }.flatMap { listFiles(_, true) }
-    }
-
-    schemaFiles.toSeq
+    schemaFiles
   }
 
   protected def accept(filePathRelativeToInputDirectory: Path, fileInclude: FileInclude): Boolean = {

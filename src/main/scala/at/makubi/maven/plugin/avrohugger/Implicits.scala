@@ -76,11 +76,9 @@ object Implicits {
     }
   }
 
-  implicit class FileArrayEnricher(files: Array[File]) {
+  implicit class FileArrayEnricher(files: Seq[File]) {
 
-    def withSuffix(suffix: String): Array[File] = {
-      files.filter(_.getName.endsWith(suffix))
-    }
+    def withSuffix(suffix: String): Seq[File] = files.filter(_.getName.endsWith(suffix))
   }
 
 }

@@ -4,7 +4,7 @@
 
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.8-TTD</version>
     <packaging>maven-plugin</packaging>
 
     <name>Avrohugger Maven Plugin</name>
@@ -14,13 +14,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java.version>11</java.version>
-        <scala.binary.version>2.13</scala.binary.version>
-        <scala.version>2.13.6</scala.version>
+        <java.version>1.8</java.version>
+        <scala.binary.version>2.12</scala.binary.version>
+        <scala.version>2.12.11</scala.version>
 
         <maven.plugin.api.version>3.8.1</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.6.1</maven.plugin.annotations.version>
-        <avrohugger.version>1.0.0-RC24</avrohugger.version>
+        <avrohugger.version>1.0.0-RC25-TTD</avrohugger.version>
         <junit.version>4.13.2</junit.version>
         <maven.plugin.testing.harness.version>3.3.0</maven.plugin.testing.harness.version>
         <commons.io.version>2.11.0</commons.io.version>
