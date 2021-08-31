@@ -22,12 +22,18 @@ import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.junit.After;
 import org.junit.Before;
+import scala.collection.JavaConverters;
+import scala.collection.immutable.Seq;
+import scala.jdk.javaapi.CollectionConverters;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static at.makubi.maven.plugin.avrohugger.TestHelper.failTestIfFilesDiffer;
 
@@ -70,6 +76,15 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         Path expectedRecord = inputDirectory.resolve("expected/ARecord.scala");
         Path actualRecord = outputDirectory.resolve("com/test/ARecord/ARecord.scala");
 
+        avrohuggerGenerator = new AvrohuggerGenerator((directory, recursive) -> {
+            List<File> list = new ArrayList<>();
+
+            list.add(directory.toPath().resolve("a").resolve("ARecord.avsc").toFile());
+            list.add(directory.toPath().resolve("b").resolve("MoneyDecimal.avsc").toFile());
+
+            return CollectionConverters.asScala(list).toSeq();
+        });
+
         avrohuggerGenerator.generateScalaFiles(
                 schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), true, false,
                 SourceGenerationFormat.STANDARD, Collections.<Mapping>emptyList(),
@@ -94,4 +109,18 @@ public class AvrohuggerGeneratorTest extends AbstractMojoTestCase {
         failTestIfFilesDiffer(expectedSubRecord, actualSubRecord);
     }
 
+    public void testAvrohuggerGeneratorNotRecursive() throws IOException {
+        Path inputDirectory = Paths.get(getBasedir()).resolve("src/test/resources/unit/avrohugger-maven-plugin");
+        Path schemaDirectory = inputDirectory.resolve("schema");
+
+        Path expectedRecord = inputDirectory.resolve("expected/Record.scala");
+        Path actualRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/Record.scala");
+
+        Path actualSubRecord = outputDirectory.resolve("at/makubi/maven/plugin/model/submodel/SubRecord.scala");
+
+        avrohuggerGenerator.generateScalaFiles(schemaDirectory.toFile(), outputDirectory.toString(), new SystemStreamLog(), false, false, SourceGenerationFormat.SPECIFIC_RECORD, Collections.<Mapping>emptyList(), Collections.singletonList(new FileInclude("**", MatchSyntax.GLOB)), new TypeOverrides());
+
+        failTestIfFilesDiffer(expectedRecord, actualRecord);
+        assertFalse(actualSubRecord + " exists, but should not", actualSubRecord.toFile().exists());
+    }
 }

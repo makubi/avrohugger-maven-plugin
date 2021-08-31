@@ -30,7 +30,9 @@ import at.makubi.maven.plugin.avrohugger.typeoverride.TypeOverrides
 import scala.jdk.CollectionConverters._
 import scala.collection.mutable.ListBuffer
 
-class AvrohuggerGenerator {
+class AvrohuggerGenerator(fileLister: FileListHelper) {
+
+  def this() { this(new DefaultFileListHelper) }
 
   def generateScalaFiles(inputDirectory: File,
                          outputDirectory: String,
@@ -83,18 +85,11 @@ class AvrohuggerGenerator {
       avroScalaCustomTypes = if (customTypes != sourceFormat.defaultTypes) Some(customTypes) else None
     )
 
-    sortSchemaFiles(listFiles(Seq(inputDirectory), recursive).filter(filter)).foreach { schemaFile =>
+    sortSchemaFiles(fileLister.listFiles(inputDirectory, recursive).filter(filter)).foreach { schemaFile =>
       log.info(s"Generating Scala files for ${schemaFile.getAbsolutePath}")
 
       generator.fileToFile(schemaFile, outputDirectory)
     }
-  }
-
-  protected def listFiles(inputFiles: Seq[File], recursive: Boolean, accFiles: Seq[File] = Seq.empty): Seq[File] = {
-    val files = inputFiles.filter(_.isFile) ++: accFiles
-    val subFiles = inputFiles.filter(_.isDirectory).flatMap(_.listFiles())
-    if (recursive && subFiles.nonEmpty) listFiles(subFiles, recursive, files)
-    else files ++: subFiles.filter(_.isFile)
   }
 
   protected def sortSchemaFiles(files: Seq[File]): Seq[File] = {
