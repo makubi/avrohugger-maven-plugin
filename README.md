@@ -142,6 +142,8 @@ You can override the following variables in the plugin configuration:
     * longType
     * nullType
     * stringType
+  * Logical
+    * timestampMillisType - possible values are `JavaTimeInstant` or `JavaSqlTimestamp`
 * Defaults to no overrides
 
 #### Example

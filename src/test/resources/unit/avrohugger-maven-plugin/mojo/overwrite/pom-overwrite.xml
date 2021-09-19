@@ -53,6 +53,7 @@
                     </fileIncludes>
                     <typeOverrides>
                         <arrayType>SCALA_ARRAY</arrayType>
+                        <timestampMillisType>JAVA_SQL_TIMESTAMP</timestampMillisType>
                     </typeOverrides>
                 </configuration>
             </plugin>

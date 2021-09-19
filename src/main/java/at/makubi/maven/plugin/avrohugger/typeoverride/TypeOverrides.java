@@ -1,6 +1,7 @@
 package at.makubi.maven.plugin.avrohugger.typeoverride;
 
 import at.makubi.maven.plugin.avrohugger.typeoverride.complex.*;
+import at.makubi.maven.plugin.avrohugger.typeoverride.logical.AvroScalaTimestampMillisType;
 import at.makubi.maven.plugin.avrohugger.typeoverride.primitive.*;
 
 public class TypeOverrides {
@@ -21,6 +22,7 @@ public class TypeOverrides {
     private avrohugger.types.AvroScalaNumberType longType;
     private avrohugger.types.AvroScalaNullType nullType;
     private avrohugger.types.AvroScalaStringType stringType;
+    private avrohugger.types.AvroScalaTimestampMillisType timestampMillisType;
 
     public TypeOverrides() {}
 
@@ -143,5 +145,13 @@ public class TypeOverrides {
 
     public void setStringType(AvroScalaStringType stringType) {
         this.stringType = stringType.avrohuggerScalaStringType;
+    }
+
+    public avrohugger.types.AvroScalaTimestampMillisType getTimestampMillisType() {
+        return timestampMillisType;
+    }
+
+    public void setTimestampMillisType(AvroScalaTimestampMillisType timestampMillisType) {
+        this.timestampMillisType = timestampMillisType.avrohuggerScalaTimestampMillisType;
     }
 }
