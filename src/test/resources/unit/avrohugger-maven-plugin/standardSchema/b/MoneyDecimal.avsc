@@ -1,0 +1,7 @@
+{
+  "namespace": "com.test",
+  "name": "MoneyDecimal",
+  "type": "enum",
+  "doc": "Fully-qualified dependency",
+  "symbols" : ["A", "AA", "AAA"]
+}
