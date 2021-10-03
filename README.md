@@ -7,12 +7,6 @@ schemas, datafiles, and protocols.
 [![Maven Central](https://img.shields.io/maven-central/v/at.makubi.maven.plugin/avrohugger-maven-plugin.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22at.makubi.maven.plugin%22%20a%3A%22avrohugger-maven-plugin%22)
 [![Join the chat at https://gitter.im/julianpeeters/avrohugger](https://badges.gitter.im/julianpeeters/avrohugger.svg)](https://gitter.im/julianpeeters/avrohugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## ![Attention](http://makubi.at/attention_icon.png) Attention: artifactId changed
-
-Please be aware that the **artifactId** changed from **avrohugger-maven-plugin_2.11** to **avrohugger-maven-plugin**.
-
-There is no reason to cross-compile Maven plugins, see http://maven.apache.org/guides/mini/guide-maven-classloading.html#Plugin_Classloaders.
-
 ## Usage
 
 The plugin currently supports one goal:
@@ -24,7 +18,7 @@ The plugin currently supports one goal:
 <plugin>
     <groupId>at.makubi.maven.plugin</groupId>
     <artifactId>avrohugger-maven-plugin</artifactId>
-    <version>1.6</version>
+    <version>1.7</version>
     <executions>
         <execution>
             <phase>generate-sources</phase>
@@ -241,6 +235,7 @@ Scala code.
 * [Eugene Platonov](https://github.com/jozic)
 * [Jason Bowman](https://github.com/sini)
 * [chrisalbright](https://github.com/chrisalbright)
+* [Konstantin](https://github.com/tyger)
 
 ## License
 The Avrohugger Maven Plugin is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
