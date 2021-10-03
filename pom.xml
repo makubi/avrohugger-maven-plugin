@@ -18,7 +18,7 @@
         <scala.binary.version>2.13</scala.binary.version>
         <scala.version>2.13.6</scala.version>
 
-        <maven.plugin.api.version>3.8.1</maven.plugin.api.version>
+        <maven.plugin.api.version>3.8.2</maven.plugin.api.version>
         <maven.plugin.annotations.version>3.6.1</maven.plugin.annotations.version>
         <avrohugger.version>1.0.0-RC24</avrohugger.version>
         <junit.version>4.13.2</junit.version>
