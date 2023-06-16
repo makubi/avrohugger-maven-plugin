@@ -1,6 +1,5 @@
 package at.makubi.maven.plugin.avrohugger.typeoverride.complex;
 
-import avrohugger.types.ScalaBinary$;
 import avrohugger.types.ScalaMap$;
 
 /**
