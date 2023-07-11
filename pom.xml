@@ -160,6 +160,16 @@
                 <configuration>
                     <scalaCompatVersion>${scala.binary.version}</scalaCompatVersion>
                     <scalaVersion>${scala.version}</scalaVersion>
+                    <args>
+                        <arg>-deprecation</arg>
+                        <arg>-encoding</arg><arg>utf8</arg>
+                        <arg>-explaintypes</arg>
+                        <arg>-feature</arg>
+                        <arg>-language:existentials</arg>
+                        <arg>-language:higherKinds</arg>
+                        <arg>-language:implicitConversions</arg>
+                        <arg>-unchecked</arg>
+                    </args>
                 </configuration>
             </plugin>
 
