@@ -28,7 +28,7 @@
         <logback.version>1.2.8</logback.version>
 
         <scala.maven.plugin.version>4.5.4</scala.maven.plugin.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <nexus.staging.maven.plugin.version>1.6.7</nexus.staging.maven.plugin.version>
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
